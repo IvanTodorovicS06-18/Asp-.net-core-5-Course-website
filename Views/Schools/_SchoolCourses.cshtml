@@ -1,0 +1,20 @@
+﻿@model List<Kursevi>
+@{
+    Skola skola = ViewBag.skola;
+}
+
+<h2>@skola.naziv</h2>
+<a class="full-view" asp-controller="Kursevi" asp-action="Courses" asp-route-schoolID="@skola.skolaID" target="_blank">Go to full view</a>
+@foreach (var k in Model)
+{
+    <div class="school-course">
+        <div class="course-img">
+            <img src="~/images/kursevi/@k.slika" alt="@k.imekursa" />
+
+        </div>
+        <div class="course-name">
+            @k.imekursa
+        </div>
+        <a asp-controller="Kursevi" asp-action="CourseDetails" asp-route-id="@k.kursID" target="_blank"></a>
+    </div>
+}

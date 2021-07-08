@@ -1,0 +1,50 @@
+﻿@model eLearning.ViewModels.AdminViewModel
+
+@{
+    ViewBag.Title = "E-learning";
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+}
+
+<!-- EDIT FORM COURSES -->
+<div class="edit-form course">
+    <i class="fas fa-times-circle closeBtn"></i>
+    <form asp-controller="Admin" asp-action="setEditCourse" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" asp-for="@Model.kurs.kursID" />
+        <input type="hidden" asp-for="@Model.kurs.slika" />
+
+        <input type="text" placeholder="Course name" asp-for="@Model.kurs.imekursa"/>
+
+        <textarea rows="4" cols="50" asp-for="@Model.kurs.detaljikursa">
+        </textarea>
+
+        <input type="text" placeholder="Course link" asp-for="@Model.kurs.link">
+
+        <input type="file" placeholder="Course image" name="slika2" class="img-upload">
+
+        <input type="text" placeholder="Course level" asp-for="@Model.kurs.nivoKursa">
+
+        <select asp-for="@Model.kurs.kategorijaID">
+
+            @foreach (var item in Model.kategorije)
+            {
+                <option value="@item.kategorijaID">
+                    @item.imekategorije
+                </option>
+            }
+        </select>
+        <select asp-for="@Model.kurs.skolaID">
+
+            @foreach (var school in Model.skole)
+            {
+                <option value="@school.skolaID">
+                    @school.naziv
+                </option>
+            }
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>

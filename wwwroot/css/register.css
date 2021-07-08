@@ -1,0 +1,7 @@
+.login {
+    width: 540px;
+}
+
+form input[type=submit] {
+    margin-top: 20px;
+}

@@ -1,0 +1,233 @@
+﻿
+@{
+    ViewBag.Title = "E-learning";
+    string name = ViewBag.Name;
+}
+@section skripte{
+    <link rel="stylesheet" href="~/css/admin-panel.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+}
+
+<input type="checkbox" id="sidebar-toggle">
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3 class="brand">
+            Panel
+        </h3>
+        <label for="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </label>
+    </div>
+    <!-- SIDEBAR MENU -->
+    <div class="sidebar-menu">
+        <ul>
+            <li data-item="category">
+                <a href="#">
+                    <i class="fas fa-book-open"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li data-item="schools">
+                <a href="#">
+                    <i class="fas fa-school"></i>
+                    <span>Schools</span>
+                </a>
+            </li>
+            <li data-item="courses">
+                <a href="#">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Courses</span>
+                </a>
+            </li>
+            <li data-item="users">
+                <a href="#">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li data-item="insert">
+                <a href="#">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Insert</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-content">
+    <header>
+        <div class="social-icons">
+            <i class="far fa-bell"></i>
+            <div></div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="dash-title">Categories</h2>
+        <!-- EDIT FORM OVERLAY -->
+        <div class="edit-overlay hide">
+            <!-- EDIT FORM CATEGORY -->
+            <div class="edit-form category hide">
+                <i class="fas fa-times-circle closeBtn"></i>
+                <form>
+                    <input type="text" placeholder="Category name">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- EDIT FORM SCHOOL -->
+            <div class="edit-form school hide">
+                <i class="fas fa-times-circle closeBtn"></i>
+                <form>
+                    <input type="text" placeholder="School name">
+                    <button>Submit</button>
+                </form>
+            </div>
+            <!-- EDIT FORM COURSES -->
+
+            <!-- EDIT FORM USERS -->
+            <div class="edit-form user hide">
+                <i class="fas fa-times-circle closeBtn"></i>
+                    <form>
+                        <input type="text" placeholder="Username">
+                        <input type="text" placeholder="Password">
+                        <input type="email" placeholder="Email">
+                        <input type="text" placeholder="User type">
+                        <button>Submit</button>
+                    </form>
+            </div>
+        </div>
+        <!-- INSERT FORMS -->
+        <div class="forms-container hidden">
+            <div class="form-options">
+                <a href="#" data-insert="category">
+                    <i class="fas fa-book-open"></i>
+                    <span>Category</span>
+                </a>
+                <a href="#" data-insert="school">
+                    <i class="fas fa-school"></i>
+                    <span>Schools</span>
+                </a>
+                <a href="#" data-insert="course">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" data-insert="user">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </div>
+            <!-- INSERT FORM CATEGORY -->
+            <div class="insert-form category hide">
+                <partial name="Forms/_AddCategory" />
+            </div>
+            <!-- INSERT FORM SCHOOLS -->
+            <div class="insert-form school hide">
+                <partial name="Forms/_AddSchool" />
+            </div>
+            <!-- INSERT FORM COURSES -->
+            <div class="insert-form course hide">
+                <partial name="Forms/_AddCourse" model="ViewBag.adminViewModel.courseViewModel" />
+            </div>
+            <!-- INSERT FORM USERS -->
+            <div class="insert-form user hide">
+                <partial name="Forms/_AddUser" />
+            </div>
+        </div>
+        <!-- Categories -->
+        <div class="table-scroll category">
+            <table class="data-review">
+                <tr>
+                    <th>Category name</th>
+                    <th>Options</th>
+                </tr>
+                @foreach (var category in ViewBag.adminViewModel.kategorije)
+                {
+                    <tr>
+                        <td>@category.imekategorije</td>
+                        <td>
+                            <a class="edit-btn category" asp-controller="Admin" asp-action="editCategory" asp-route-id="@category.kategorijaID">EDIT</a>
+                            <a class="delete-btn" asp-controller="Admin" asp-action="DeleteCategory" asp-route-id="@category.kategorijaID">DELETE</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <!-- USERS -->
+        <div class="table-scroll users hidden">
+            @foreach (var user in ViewBag.adminViewModel.korisnici)
+            {
+                <div class="user-card">
+                    <div class="user-img">
+                        <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                    </div>
+                    <div class="user-about">
+                        <form>
+                            <input type="text" placeholder="Username" value="@user.korisnickoIme">
+                            <input type="text" placeholder="Password" value="@user.password">
+                            <input type="email" placeholder="Email" value="@user.email">
+                            <input type="text" placeholder="User type" value="@user.tip">
+                            <div class="user-options">
+                                <a class="edit-btn user" asp-controller="Admin" asp-action="editUser" asp-route-id="@user.userID">EDIT</a>
+                                <a class="delete-btn user" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.userID">DELETE</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <!-- SCHOOLS -->
+        <div class="table-scroll schools hidden">
+            <table class="data-review">
+                <tr>
+                    <th>School name</th>
+                    <th>Options</th>
+                </tr>
+                @foreach (var school in ViewBag.adminViewModel.skole)
+                {
+                    <tr>
+                        <td>
+                            <div class="school-container">
+                                <div class="school-name">
+                                    <h3>@school.naziv</h3>
+                                </div>
+                                <div class="school-img">
+                                    <img src="~/images/Skole/@school.logo">
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <a class="edit-btn school" asp-controller="Admin" asp-action="editSchool" asp-route-id="@school.skolaID">EDIT</a>
+                            <a class="delete-btn" asp-controller="Admin" asp-action="DeleteSchool" asp-route-id="@school.skolaID">DELETE</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <!-- COURSES -->
+        <div class="table-scroll courses hidden">
+            <table class="data-review">
+                <tr>
+                    <th>Course name</th>
+                    <th>Category</th>
+                    <th>School</th>
+                </tr>
+                @foreach (var course in ViewBag.adminViewModel.kursevi)
+                {
+                    <tr>
+                        <td>@course.kurs.imekursa</td>
+                        <td>@course.kategorija.imekategorije</td>
+                        <td>@course.skola.naziv</td>
+                        <td class="options">
+                            <a class="edit-btn course" asp-controller="Admin" asp-action="editCourse" asp-route-id="@course.kurs.kursID">EDIT</a>
+                            <a class="delete-btn course" asp-controller="Admin" asp-action="DeleteCourse" asp-route-id="@course.kurs.kursID">DELETE</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </main>
+</div>
+<script src="~/js/admin-panel.js"></script>

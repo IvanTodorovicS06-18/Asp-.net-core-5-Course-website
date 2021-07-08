@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "E-learning";
+}
+
+<section class="main">
+    <div class="main-left">
+        <h1>The Best Free <br> Online Courses</h1>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="btn-wrap">
+                <div class="btn"><a asp-controller="Kursevi" asp-action="Courses">Courses</a></div>
+                <div class="btn btn-white"><a asp-controller="Schools" asp-action="Index">Schools</a></div>
+            </div>
+        }
+        else
+        {
+            <h2>Sign in to see the content we offer</h2>
+            <div class="outer-circle">
+                <div class="inner-circle">
+                </div>
+            </div>
+        }
+        <br/>
+    </div>
+    <div class="main-right">
+        <img class="img1" src="images/Sajt-slike/slika2.png" alt="">
+    </div>
+</section>
